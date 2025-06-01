@@ -1,0 +1,6 @@
+@DemoImportExport_HostAddress = http://localhost:5227
+
+GET {{DemoImportExport_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

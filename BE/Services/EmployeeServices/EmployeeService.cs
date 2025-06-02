@@ -375,6 +375,7 @@ namespace DemoImportExport.Services.EmployeeServices
                         var listImportError = employeeImportParentDtos.EmployeeImportDtos.Where(x => x.IsImported == false).ToList();
                         List<EmployeeExcelDto> employeeExcelDtos = new List<EmployeeExcelDto>();
                         employeeExcelDtos = _mapper.Map<List<EmployeeExcelDto>>(listImportError);
+
                         var fileErrors = GenerateExcelFile(employeeExcelDtos,null);
 
                         var cacheKeyError = $"error-file-{Guid.NewGuid()}";
@@ -431,60 +432,106 @@ namespace DemoImportExport.Services.EmployeeServices
         /// </summary>
         /// <param name="input"> chuỗi ngày tháng năm </param>
         /// <returns></returns>
+
+        //public DateTime? ProcessDate(string input)
+        //{
+        //    // Regex để kiểm tra định dạng yyyy
+        //    string yearRegex = @"^\d{4}$";
+
+        //    // Regex để kiểm tra định dạng dd/MM/yyyy
+        //    string ddMmYyRegex = @"^\d{1,2}/\d{1,2}/\d{4}$";
+
+        //    // Regex để kiểm tra định dạng MM/yyyy
+        //    string mmYyRegex = @"^\d{1,2}/\d{4}$";
+
+        //    // Kiểm tra input bằng Regex
+        //    if (Regex.IsMatch(input, yearRegex))
+        //    {
+        //        // Trả về ngày đầu tiên của năm được cung cấp
+        //        return DateTime.ParseExact($"01/01/{input}", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+        //    }
+        //    else if (Regex.IsMatch(input, ddMmYyRegex))
+        //    {
+        //        // Tách chuỗi thành các phần
+        //        string[] parts = input.Split('/');
+
+        //        // Bổ sung "0" nếu phần ngày chỉ có một ký tự
+        //        if (parts[0].Length == 1)
+        //        {
+        //            parts[0] = "0" + parts[0];
+        //        }
+        //        if (parts[1].Length == 1)
+        //        {
+        //            parts[1] = "0" + parts[1];
+        //        }
+
+        //        // Ghép chuỗi lại và định dạng thành dd/MM/yyyy
+        //        string formattedDate = string.Join("/", parts);
+
+        //        // Trả về ngày được định dạng
+        //        return DateTime.ParseExact(formattedDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+        //    }
+        //    else if (Regex.IsMatch(input, mmYyRegex))
+        //    {
+        //        string[] parts = input.Split('/');
+        //        if (parts[0].Length == 1)
+        //        {
+        //            input = "0" + input;
+        //        }
+
+        //        // Trả về ngày đầu tiên của tháng được cung cấp
+        //        return DateTime.ParseExact($"01/{input}", "dd/MM/yyyy", CultureInfo.InvariantCulture);
+        //    }
+
+        //    // Nếu input không hợp lệ, trả về null
+        //    return null;
+        //}
+
         public DateTime? ProcessDate(string input)
         {
-            // Regex để kiểm tra định dạng yyyy
+            if (string.IsNullOrWhiteSpace(input))
+                return null;
+
+            // Regex kiểm tra năm (yyyy)
             string yearRegex = @"^\d{4}$";
 
-            // Regex để kiểm tra định dạng dd/MM/yyyy
-            string ddMmYyRegex = @"^\d{1,2}/\d{1,2}/\d{4}$";
-
-            // Regex để kiểm tra định dạng MM/yyyy
+            // Regex kiểm tra tháng/năm (MM/yyyy)
             string mmYyRegex = @"^\d{1,2}/\d{4}$";
 
-            // Kiểm tra input bằng Regex
+            // Các định dạng ngày hợp lệ cần hỗ trợ
+            string[] validDateFormats = { "dd/MM/yyyy", "d/M/yyyy", "dd-MM-yyyy", "d-M-yyyy" };
+
+            // Nếu là định dạng năm duy nhất (yyyy)
             if (Regex.IsMatch(input, yearRegex))
             {
-                // Trả về ngày đầu tiên của năm được cung cấp
                 return DateTime.ParseExact($"01/01/{input}", "dd/MM/yyyy", CultureInfo.InvariantCulture);
             }
-            else if (Regex.IsMatch(input, ddMmYyRegex))
-            {
-                // Tách chuỗi thành các phần
-                string[] parts = input.Split('/');
 
-                // Bổ sung "0" nếu phần ngày chỉ có một ký tự
-                if (parts[0].Length == 1)
-                {
-                    parts[0] = "0" + parts[0];
-                }
-                if (parts[1].Length == 1)
-                {
-                    parts[1] = "0" + parts[1];
-                }
-
-                // Ghép chuỗi lại và định dạng thành dd/MM/yyyy
-                string formattedDate = string.Join("/", parts);
-
-                // Trả về ngày được định dạng
-                return DateTime.ParseExact(formattedDate, "dd/MM/yyyy", CultureInfo.InvariantCulture);
-
-            }
-            else if (Regex.IsMatch(input, mmYyRegex))
+            // Nếu là định dạng tháng/năm (MM/yyyy)
+            if (Regex.IsMatch(input, mmYyRegex))
             {
                 string[] parts = input.Split('/');
                 if (parts[0].Length == 1)
                 {
                     input = "0" + input;
                 }
-
-                // Trả về ngày đầu tiên của tháng được cung cấp
                 return DateTime.ParseExact($"01/{input}", "dd/MM/yyyy", CultureInfo.InvariantCulture);
             }
 
-            // Nếu input không hợp lệ, trả về null
+            // Nếu là định dạng ngày/tháng/năm (dd/MM/yyyy hoặc dd-MM-yyyy)
+            foreach (var format in validDateFormats)
+            {
+                if (DateTime.TryParseExact(input, format, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime result))
+                {
+                    return result;
+                }
+            }
+
+            // Nếu không khớp định dạng nào, trả về null
             return null;
         }
+
 
 
         /// <summary>

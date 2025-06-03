@@ -8,8 +8,8 @@ namespace DemoImportExport.Caches
         public IDatabase _cacheDb;
         public CacheService()
         {
-
-            var redis = ConnectionMultiplexer.Connect("127.0.0.1:6379,abortConnect=false,connectTimeout=30000,responseTimeout=30000");
+            var redisHost = Environment.GetEnvironmentVariable("REDIS_HOST") ?? "localhost";
+            var redis = ConnectionMultiplexer.Connect($"{redisHost}:6379,abortConnect=false,connectTimeout=30000,responseTimeout=30000");
             if (redis != null)
             {
 

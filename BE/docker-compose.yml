@@ -30,6 +30,7 @@ services:
       - redis
     environment:
       - ConnectionStrings__DefaultConnection=Server=sqlserver;Database=TestImportExportExcel;User=sa;Password=Kavior@123;TrustServerCertificate=true
+      - REDIS_HOST=redis
     restart: unless-stopped
 
 volumes:

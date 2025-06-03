@@ -55,7 +55,9 @@ namespace DemoImportExport
                 builder.Services.AddSwaggerGen();
 
                 builder.Services.AddDbContext<AppDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("MyCnn")));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
                 // Repository
                 builder.Services.AddScoped(typeof(IUnitOfWork), typeof(UnitOfWork));
                 // Services
@@ -74,12 +76,10 @@ namespace DemoImportExport
                 var app = builder.Build();
                 app.UseResponseCompression();
                 // Configure the HTTP request pipeline.
-                if (app.Environment.IsDevelopment())
-                {
+               
                     app.UseSwagger();
                     app.UseSwaggerUI();
                     app.UseHsts();
-                }
 
                 // use scope ensure connect to db 
                 using (var scope = app.Services.CreateScope())

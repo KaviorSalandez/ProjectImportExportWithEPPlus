@@ -9,7 +9,7 @@ namespace DemoImportExport.Caches
         public CacheService()
         {
 
-            var redis = ConnectionMultiplexer.Connect("localhost:6379,abortConnect=false,connectTimeout=30000,responseTimeout=30000");
+            var redis = ConnectionMultiplexer.Connect("127.0.0.1:6379,abortConnect=false,connectTimeout=30000,responseTimeout=30000");
             if (redis != null)
             {
 

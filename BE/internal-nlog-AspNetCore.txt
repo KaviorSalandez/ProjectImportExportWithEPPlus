@@ -452,3 +452,15 @@
 2025-06-02 01:13:12.2851 Info Validating config: TargetNames=lifetimeConsole, ownFile-web, ConfigItems=32, FilePath=D:\StructureCode\ProjectImportExportWithEPPlus\BE\bin\Debug\net8.0\nlog.config
 2025-06-02 01:13:12.3050 Info Configuration initialized.
 2025-06-02 01:13:12.7995 Info Validating config: TargetNames=lifetimeConsole, ownFile-web, ConfigItems=32, FilePath=D:\StructureCode\ProjectImportExportWithEPPlus\BE\bin\Debug\net8.0\nlog.config
+2025-06-02 15:15:20.0897 Info Registered target NLog.Targets.FileTarget(Name=ownFile-web)
+2025-06-02 15:15:20.1019 Info Registered target NLog.Targets.ConsoleTarget(Name=lifetimeConsole)
+2025-06-02 15:15:20.1112 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.4.0.3182. Product version: 5.4.0+4d45d445601312040107cbe2ac00e56c4bf4a60b. GlobalAssemblyCache: False
+2025-06-02 15:15:20.1454 Info Validating config: TargetNames=lifetimeConsole, ownFile-web, ConfigItems=32, FilePath=D:\StructureCode\ProjectImportExportWithEPPlus\BE\bin\Debug\net8.0\nlog.config
+2025-06-02 15:15:20.1653 Info Configuration initialized.
+2025-06-02 15:15:21.5793 Info Validating config: TargetNames=lifetimeConsole, ownFile-web, ConfigItems=32, FilePath=D:\StructureCode\ProjectImportExportWithEPPlus\BE\bin\Debug\net8.0\nlog.config
+2025-06-02 17:23:40.9625 Info Registered target NLog.Targets.FileTarget(Name=ownFile-web)
+2025-06-02 17:23:41.0084 Info Registered target NLog.Targets.ConsoleTarget(Name=lifetimeConsole)
+2025-06-02 17:23:41.0250 Info NLog, Version=5.0.0.0, Culture=neutral, PublicKeyToken=5120e14c03d0593c. File version: 5.4.0.3182. Product version: 5.4.0+4d45d445601312040107cbe2ac00e56c4bf4a60b. GlobalAssemblyCache: False
+2025-06-02 17:23:41.0961 Info Validating config: TargetNames=lifetimeConsole, ownFile-web, ConfigItems=32, FilePath=D:\StructureCode\ProjectImportExportWithEPPlus\BE\bin\Debug\net8.0\nlog.config
+2025-06-02 17:23:41.1114 Info Configuration initialized.
+2025-06-02 17:23:42.5441 Info Validating config: TargetNames=lifetimeConsole, ownFile-web, ConfigItems=32, FilePath=D:\StructureCode\ProjectImportExportWithEPPlus\BE\bin\Debug\net8.0\nlog.config
